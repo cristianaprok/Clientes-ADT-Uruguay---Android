@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:text="@string/fragment_main_btn_my_app"
+        android:textColor="@color/common_google_signin_btn_text_light_default"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/sucursal_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorPrimary"
+        android:paddingTop="10dp"
+        android:text="@string/app_list_sucursal_virtual"
+        android:textColor="@color/article_attachment_list_divider_color" />
+    <Button
+        android:id="@+id/adt_findu_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingTop="10dp"
+        android:text="@string/app_list_adt_find_u"
+        android:textColor="@color/article_attachment_list_divider_color"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+    <Button
+        android:id="@+id/adt_ss_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingTop="10dp"
+        android:text="@string/app_list_adt_smart_security"
+        android:textColor="@color/article_attachment_list_divider_color"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+    <Button
+        android:id="@+id/adt_go_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingTop="10dp"
+        android:text="@string/app_list_adt_go"
+        android:textColor="@color/article_attachment_list_divider_color"
+        android:layout_marginBottom="120dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+</LinearLayout>

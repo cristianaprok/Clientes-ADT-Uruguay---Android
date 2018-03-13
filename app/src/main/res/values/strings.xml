@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Clientes ADT Uruguay</string>
+    <string name="title_section1">Dates</string>
+    <string name="title_section2"> </string>
+    <string name="action_add">Añadir</string>
+    <string name="action_profile">Detalles de usuario</string>
+    <string name="title_activity_create_date">Create or Change a Date</string>
+    <string name="action_save">Enviar</string>
+    <string name="title_activity_create_profile">Detalles de usuario</string>
+    <string name="action_edit">Editar</string>
+    <string name="title_activity_profile">Detalles de usuario</string>
+    <string name="fragment_create_date_title_hint">Title of your date</string>
+    <string name="fragment_create_profile_name_hint">Nombre</string>
+    <string name="fragment_create_profile_email_hint">correo electrónico</string>
+    <string name="fragment_create_profile_account_num_hint">Número de cuenta</string>
+    <string name="fragment_date_no_items">No hay elementos para mostrar.</string>
+    <string name="fragment_profile_username">Nombre de usuario</string>
+    <string name="fragment_profile_email_address">dirección de correo electrónico</string>
+    <string name="fragment_main_header">Consulta nuestro Centro de ayuda, crea un ticket o administra tus entradas existentes</string>
+    <string name="fragment_main_btn_knowledge_base">CENTRO DE AYUDA</string>
+    <string name="fragment_main_btn_contact_us">CONTACTO CLIENTES</string>
+    <string name="fragment_main_btn_my_tickets">PANEL DE CONTROL</string>
+    <string name="fragment_main_btn_rate_the_app">Rate the app</string>
+    <string name="fragment_main_btn_my_profile">MIS DATOS</string>
+    <string name="fragment_main_btn_chat">CHAT</string>
+    <string name="fragment_main_btn_my_app">MIS APLICACIONES</string>
+    <string name="fragment_profile_invalid_email">Introduzca una dirección de correo electrónico</string>
+    <string name="fragment_forgot_pass">Olvidó su número de cliente</string>
+
+    <string name="dialog_auth_title">Configure Detalles de usuario</string>
+    <string name="dialog_auth_positive_btn">Hazlo ahora</string>
+    <string name="dialog_auth_negative_btn">Luego</string>
+
+    <string name="push_error_contact_zendesk">Failed to contact push server</string>
+    <string name="push_error_obtain_push_id">Failed to obtain push identifier</string>
+    <string name="push_error_device_not_compatible">Your device doesn\'t support push notifications</string>
+
+    <string name="push_notification_fallback_title">Someone replied to your ticket</string>
+
+    <string name="push_date_title">Atención al cliente ADT</string>
+    <string name="create_ticket_subject">Tema</string>
+    <string name="create_ticket_desc">Descripción</string>
+    <string name="create_ticket_type">Seleccionar</string>
+    
+    <string name="app_list_sucursal_virtual">SUCURSAL VIRTUAL</string>
+    <string name="app_list_adt_find_u">ADT FINDU</string>
+    <string name="app_list_adt_smart_security">ADT SMART SECURITY</string>
+    <string name="app_list_adt_go">ADT GO</string>
+
+
+</resources>
