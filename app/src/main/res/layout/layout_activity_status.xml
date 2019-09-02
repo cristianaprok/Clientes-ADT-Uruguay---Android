@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/drawable_solid_color_blue_gradient">
+
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/civOlivia"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="8dp"
+        android:gravity="center"
+        android:src="@drawable/olivia_chatbot"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivClose" />
+
+
+    <android.support.v4.widget.Space
+        android:id="@+id/space"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="@id/civOlivia"
+        app:layout_constraintEnd_toEndOf="@id/civOlivia"
+        app:layout_constraintStart_toStartOf="@id/civOlivia"
+        app:layout_constraintTop_toTopOf="@+id/civOlivia" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/space"
+        app:layout_constraintTop_toTopOf="@id/space">
+
+
+        <TextView
+            android:id="@+id/tvOliviaText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@drawable/speech_bubble"
+            android:padding="16dp"
+            android:paddingBottom="16dp"
+            android:textSize="14sp"
+            android:textColor="@color/blue"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvOliviaTextMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/drawable_white_olivia_text_bg"
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:textColor="@color/blue"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvReturn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/drwable_button_rounded_corner_bg"
+        android:gravity="center"
+        android:text="@string/text_return"
+        android:textAppearance="@style/TextAppearance.Wearable.Medium"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/drwable_button_rounded_corner_bg"
+        android:text="@string/text_start"
+        android:textAppearance="@style/TextAppearance.Wearable.Medium"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

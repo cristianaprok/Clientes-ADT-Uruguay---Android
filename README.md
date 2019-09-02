@@ -1,23 +1,28 @@
-:warning: *Use of this software is subject to important terms and conditions as set forth in the License file* :warning:
+# ADT FindU
+[![Build Status](https://travis-ci.com/shadowsocks/shadowsocks-android.svg)](https://travis-ci.com/shadowsocks/shadowsocks-android)
+[![API](https://img.shields.io/badge/API-17%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=17)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1a21d48d466644cdbcb57a1889abea5b)](https://www.codacy.com/app/shadowsocks/shadowsocks-android?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shadowsocks/shadowsocks-android&amp;utm_campaign=Badge_Grade)
 
-[![Build Status](https://travis-ci.org/zendesk/sdk_demo_app_android.svg?branch=master)](https://travis-ci.org/zendesk/sdk_demo_app_android)
+<a href="https://play.google.com/store/apps/details?id=ar.com.localizart.android.report"><img src="./app/src/main/res/drawable/ic_launcher.png" height="48"></a>
+<a href="https://play.google.com/store/apps/details?id=ar.com.localizart.android.report"><img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height="48"></a>
 
-# Zendesk Mobile SDK Android Demo app
+## ABOUT THE APP
+ADT FindU is a cell phone location app which gives people the chance to send emergency signals. It is useful and friendly.
 
-The "Remember the Date" demo app demonstrates how to use the Zendesk Mobile SDK to build native support into your mobile application.
+It is mainly thought for safety of family members as it offers real time location of each cellphone and gives them the chance to use it to send emergency signals.
 
-##### The following Zendesk Mobile SDK features are demonstrated in the "Remember The Date" app.
+It is a descreet app whichs turns on automatically and starts tracking the cell phone. It also allows users to send emergency signals when needed. It is only required a cell phone with internet GPRS capability to start using it. You do not neccesary need a cell phone with GPS.
 
-* Create/Submit a Zendesk ticket request
-* View an existing Zendesk ticket request
-* Access and search your Zendesk Help Center Self Service content
-* Accessing the Zendesk "Rate my app" feature
+### MAIN FUNCTIONS:
 
-Please submit bug reports to [Zendesk](https://rememberthedate.zendesk.com/requests/new). Pull requests are welcome.
+*	Where are you? It offers real time location data shown on map (streets or avenue).
+*	Where have u been? It offers historical location data to know where have you been at any time.
+*	My places: you can register and save your favorites places through this option. A place can be a safe or an unsafe zone.
+*	My alerts: you can configure Alerts just to receive mails when you enter or leave your favourite places.
+*	Panic button: you can set 3 (three) addresses or “panic zones”. If you send emergency signals from one of these places, ADT FindU will send you the police to help you.
 
-### Licence:
+### PREREQUISITES
 
-By downloading or using the Zendesk Mobile SDK, You agree to the Zendesk Master
-Subscription Agreement https://www.zendesk.com/company/customers-partners/#master-subscription-agreement and Application Developer and API License
-Agreement https://www.zendesk.com/company/customers-partners/#application-developer-api-license-agreement and
-acknowledge that such terms govern Your use of and access to the Mobile SDK.
+* JDK 1.8
+* Android SDK 17+
+* Android Studio

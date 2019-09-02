@@ -1,53 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Clientes ADT Uruguay</string>
-    <string name="title_section1">Dates</string>
-    <string name="title_section2"> </string>
-    <string name="action_add">Añadir</string>
-    <string name="action_profile">Detalles de usuario</string>
-    <string name="title_activity_create_date">Create or Change a Date</string>
-    <string name="action_save">Enviar</string>
-    <string name="title_activity_create_profile">Detalles de usuario</string>
-    <string name="action_edit">Editar</string>
-    <string name="title_activity_profile">Detalles de usuario</string>
-    <string name="fragment_create_date_title_hint">Title of your date</string>
-    <string name="fragment_create_profile_name_hint">Nombre</string>
-    <string name="fragment_create_profile_email_hint">correo electrónico</string>
-    <string name="fragment_create_profile_account_num_hint">Número de cuenta</string>
-    <string name="fragment_date_no_items">No hay elementos para mostrar.</string>
-    <string name="fragment_profile_username">Nombre de usuario</string>
-    <string name="fragment_profile_email_address">dirección de correo electrónico</string>
-    <string name="fragment_main_header">Consulta nuestro Centro de ayuda, crea un ticket o administra tus entradas existentes</string>
-    <string name="fragment_main_btn_knowledge_base">CENTRO DE AYUDA</string>
-    <string name="fragment_main_btn_contact_us">CONTACTO CLIENTES</string>
-    <string name="fragment_main_btn_my_tickets">PANEL DE CONTROL</string>
-    <string name="fragment_main_btn_rate_the_app">Rate the app</string>
-    <string name="fragment_main_btn_my_profile">MIS DATOS</string>
-    <string name="fragment_main_btn_chat">CHAT</string>
-    <string name="fragment_main_btn_my_app">MIS APLICACIONES</string>
-    <string name="fragment_profile_invalid_email">Introduzca una dirección de correo electrónico</string>
-    <string name="fragment_forgot_pass">Olvidó su número de cliente</string>
+    <!--  SISTEMA   -->
+    <string name="app_name">ADT FindU</string>
+    <string name="status_bar_notifications_running_title">ADT FindU</string>
+    <string name="status_bar_notifications_running_text">You are being tracked.</string>
+    <string name="default_package_type">antena</string>
+    <string name="default_frequency">180</string>
+    <string name="return_param_url">URL</string>
+    <string name="return_param_package_type">tipo_loc</string>
+    <string name="return_param_frequency">tiempo</string>
+    <string name="value_short_package_type">antena</string>
+    <string name="value_long_package_type">gps</string>
+    <string name="use_last_known_location">false</string>
 
-    <string name="dialog_auth_title">Configure Detalles de usuario</string>
-    <string name="dialog_auth_positive_btn">Hazlo ahora</string>
-    <string name="dialog_auth_negative_btn">Luego</string>
 
-    <string name="push_error_contact_zendesk">Failed to contact push server</string>
-    <string name="push_error_obtain_push_id">Failed to obtain push identifier</string>
-    <string name="push_error_device_not_compatible">Your device doesn\'t support push notifications</string>
+    <!--  DATOS USER -->
+    <string name="user_email">email</string>
+    <string name="user_password">password</string>
+    <string name="user_nombre">nombre</string>
+    <string name="user_tfno">tfno</string>
+    <string name="user_imei">imei</string>
+    <string name="user_mcc">mcc</string>
+    <string name="user_mnc">mnc</string>
+    <string name="user_language">language</string>
+    <string name="user_code">code</string>
+    <!-- ANTIGUAS SISTEMA -->
+    <!-- string name="activation_logo">Localizar-t Tracker logo</string> -->
+    <string name="version_name">{versionName}</string>
+    <string name="activation_number">000</string>
 
-    <string name="push_notification_fallback_title">Someone replied to your ticket</string>
 
-    <string name="push_date_title">Atención al cliente ADT</string>
-    <string name="create_ticket_subject">Tema</string>
-    <string name="create_ticket_desc">Descripción</string>
-    <string name="create_ticket_type">Seleccionar</string>
-    
-    <string name="app_list_sucursal_virtual">SUCURSAL VIRTUAL</string>
-    <string name="app_list_adt_find_u">ADT FINDU</string>
-    <string name="app_list_adt_smart_security">ADT SMART SECURITY</string>
-    <string name="app_list_adt_go">ADT GO</string>
+    <!-- 					ANTIGUAS	UI				 -->
+
+    <string name="activation_code_label">Código de activación:</string>
+
+    <string name="activate_button">Activar</string>
+    <string name="activation_retrieve">Obteniendo código de activación&#8230;</string>
+
+
+    <!-- 					UI					 -->
+    <string name="iniciar_logo_description">ADT Logo</string><!-- For accessibility. -->
+    <string name="iniciar_button">Log in</string>
+    <string name="iniciar_edit_emailhint">Email</string>
+    <string name="iniciar_edit_passwordhint">Password</string>
+    <string name="iniciar_welcome">Welcome</string>
+    <string name="iniciar_paragraph1">Please enter a valid email to create your FindU account.</string>
+    <string name="iniciar_paragraph2">If you have a FindU account, use the email you entered before.</string>
+
+    <string name="registrar_image_back_description">Back</string>
+    <string name="registrar_image_next_description">Next</string>
+    <string name="registrar_text_paragraph1">Enter a name to associate this mobile device to your FindU account.</string>
+    <string name="registrar_button_foto">Add photo</string>
+    <string name="registrar_edit_nombrehint">Name</string>
+    <string name="registrar_edit_numerotelefonohint">Phone number</string>
+    <string name="registrar_text_registrar">Register</string>
+
+    <string name="confirmacion_text_confirmacioncuenta">Account confirmation</string>
+    <string name="confirmacion_text_confirmacionsenvio">Activation code was sent to this email : </string>
+    <string name="confirmacion_text_confirme">Confirm code to start using the app</string>
+    <string name="confirmacion_text_codigohint">Confirmation code</string>
+    <string name="confirmacion_text_ninguncodigo">Have not received the confirmation code? Check your spam email folder.</string>
+
+    <string name="registrado_text_exito">Successful registration.</string>
+    <string name="registrado_text_buttonfinalizar">End</string>
+
+    <!-- 					CARTELES					 -->
+    <string name="cartel_espereporfavorunmomento">Please wait, just a moment&#8230;</string>
+    <string name="cartel_espereporfavor">Please wait&#8230;</string>
+    <string name="cartel_escribacorrectamentemail">Please verify your email.</string>
+    <string name="cartel_passwordminimocaracteres">Password must be 8 character length</string>
+    <string name="cartel_parainiciarapagarwifi">Please set WiFI Off.</string>
+    <string name="cartel_verifiquecontrasena">Please verify your password and remember it must have 8 character length both numbers and letters.</string>
+    <string name="cartel_nombredebeser">Name must have 1 to 15 characters&#8230;"</string>
+    <string name="cartel_compruebesucodigo">Check your code &#8230;</string>
+    <string name="cartel_essolounmomento">&#8230; is just a moment.</string>
+    <string name="cartel_nolicencia">There are no licenses to register the device.</string>
+    <!-- TODO: Rename the "cartel_" to "banner_". -->
+    <string name="banner_verify_connection">Please verify your internet connection.</string>
+    <string name="default_notification_channel_id">adtfindu</string>
+    <string name="msg_token_fmt">token</string>
+    <string name="tracking_message">Tracking</string>
+    <string name="click_here_to_see_map">Click here to see map</string>
+    <string name="image_description_android_phone">Pulsator image description</string>
+    <string name="text_olivia_is_with_you">Olivia is with you</string>
+    <string name="text_return">Return</string>
+    <string name="text_start">Start</string>
+    <string name="text_finalizer">Finalizer</string>
+
+
+    // TODO added by PS for PocketSphinx Library testing
+    <string name="kws_caption">To start demonstration say \"oh mighty computer\".</string>
+    <string name="menu_caption">Say \"digits\", \"forecast\" or \"phones\" to choose the grammar, language model or phonetic decoder example.</string>
+    <string name="digits_caption">To try recognition of digits: say something like \"one two three four five\".</string>
+    <string name="forecast_caption">To try recognition of a weather forecast like \"sunny spells on Wednesday\".</string>
+    <string name="phone_caption">To try phonetic recognition say anything.</string>
+
+
+    <!--TODO added by PS for SpeechDetection-->
+    <string name="ds_listening">Listening…</string>
+    <string name="ds_internet_not_enabled">Internet is not enabled</string>
+    <string name="ds_mic_permissions_required">Please provide microphone permissions</string>
+    <string name="ds_unknown_error">Unknown error</string>
+    <string name="ds_progress_layout_error">Unable to add speech progress view</string>
+    <string name="ds_confirm">Confirm</string>
+    <string name="ds_retry">Retry</string>
+    <string name="hotword_text_one">I\'m here!</string>
+    <string name="hotword_text_two">If you are in danger say the word: Ayuda!</string>
+    <string name="status_alert_0">You do not have an address set up. Contact our ADT support</string>
+    <string name="alert_status_1_text">Try again when you are closer to your home.</string>
+    <string name="alert_status_2_text_one">Hi, I\'m Olivia</string>
+    <string name="alert_status_2_text_two">I will accompany you on your return home .</string>
+
+
+    <string-array name="droid_speech_errors">
+        <item>Network Timeout</item>
+        <item>Network Error</item>
+        <item>Audio Error</item>
+        <item>Server Error</item>
+        <item>Client Error</item>
+        <item>Speech Timeout</item>
+        <item>No match</item>
+        <item>Speech Recognizer busy</item>
+        <item>Insufficient permissions</item>
+    </string-array>
+    <string name="permission_denied_toast">Permission is denied</string>
+    <string name="mic_permission_retry">"The microphone permission was denied. Do you want to try again? "</string>
+    <string name="try_again">Try Again</string>
 
 
 </resources>

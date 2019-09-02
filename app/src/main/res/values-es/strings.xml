@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Correo electrónico
+
+Email
+
+Contraseña
+
+Password
+
+Iniciar
+
+Log in
+
+
+Carteles
+
+Espere por favor. Es solo un momento.
+Espere por favor / Please wait
+Escriba correctamente su mail
+Escriba correctamente su mail / Please verify your email.
+Password debe ser mínimo 8 caracteres.
+El password debe contener al menos 8 caracteres / Password must be 8 character length
+Para iniciar debe apagar wifi
+Para iniciar debe apagar wifi / Please set WiFI Off.
+Verifique su contraseña. Recuerde que debe contener números y letras y longitud mínima de 8 caracteres.
+Verifique su contraseña. Recuerde que debe contener números y letras y longitud mínima de 8 caracteres / Please verify your password and remember it must have 8 character length both numbers and letters.
+-->
+<resources>
+
+    <!--  							APP 											-->
+
+    <string name="app_name">ADT FindU</string>
+    <string name="status_bar_notifications_running_title">ADT FindU</string>
+    <string name="status_bar_notifications_running_text">Usted está siendo rastreado.</string>
+    <string name="default_package_type">antena</string>
+    <string name="default_frequency">180</string>
+    <string name="return_param_url">URL</string>
+    <string name="return_param_package_type">tipo_loc</string>
+    <string name="return_param_frequency">tiempo</string>
+    <string name="value_short_package_type">antena</string>
+    <string name="value_long_package_type">gps</string>
+    <string name="use_last_known_location">false</string>
+    <!--  DATOS USER -->
+    <string name="user_email">email</string>
+    <string name="user_password">password</string>
+    <string name="user_nombre">nombre</string>
+    <string name="user_tfno">tfno</string>
+    <string name="user_imei">imei</string>
+    <string name="user_mcc">mcc</string>
+    <string name="user_mnc">mnc</string>
+    <string name="user_language">language</string>
+    <string name="user_code">code</string>
+
+    <!--  ///////////////////////////////////////////////////////// -->
+
+    <!-- UI -->
+    <!-- string name="activation_logo">Localizar-t Tracker logo</string> -->
+    <string name="activation_code_label">Código de activación:</string>
+    <string name="activation_number">000</string>
+    <string name="version_name">{versionName}</string>
+    <string name="activate_button">Activar</string>
+    <string name="activation_retrieve">Obteniendo código de activación&#8230;</string>
+
+
+    <!-- 			SCREENS INICIAR 							-->
+    <string name="iniciar_logo_description">Logo ADT</string><!-- For accessibility. -->
+    <string name="iniciar_button">Iniciar</string>
+    <string name="iniciar_edit_emailhint">Correo electrónico</string>
+    <string name="iniciar_edit_passwordhint">Contraseña</string>
+    <string name="iniciar_welcome">Bienvenido</string>
+    <string name="iniciar_paragraph1">Ingrese un email válido para crear su cuenta FindU.</string>
+    <string name="iniciar_paragraph2">Si ya posee una cuenta FindU, utilice el email con el que se registró anteriormente.</string>
+
+    <string name="registrar_image_back_description">Atraz</string>
+    <string name="registrar_image_next_description">Siguiente</string>
+    <string name="registrar_text_paragraph1">Coloque un nombre para identificar este dispositivo móvil en su cuenta FindU.</string>
+    <string name="registrar_button_foto">Agregar foto</string>
+    <string name="registrar_edit_nombrehint">Nombre</string>
+    <string name="registrar_edit_numerotelefonohint">Número telefónico</string>
+    <string name="registrar_text_registrar">Registrar</string>
+
+    <string name="confirmacion_text_confirmacioncuenta">Confirmación de cuenta</string>
+    <string name="confirmacion_text_confirmacionsenvio">El código de confirmación se envió a la siguiente dirección : </string>
+    <string name="confirmacion_text_confirme">Confirme el código para empezar usar</string>
+    <string name="confirmacion_text_codigohint">Código de confirmación</string>
+    <string name="confirmacion_text_ninguncodigo">Ningún código recibido? Revise su carpeta de correo no deseado.</string>
+
+    <string name="registrado_text_exito">Se ha registrado con éxito.</string>
+    <string name="registrado_text_buttonfinalizar">Finalizar</string>
+
+    <!-- 						CARTELES INICIAR									 -->
+    <string name="cartel_espereporfavorunmomento">Espere por favor. Es solo un momento&#8230;</string>
+    <string name="cartel_espereporfavor">Espere por favor.</string>
+    <string name="cartel_escribacorrectamentemail">Escriba correctamente su mail.</string>
+    <string name="cartel_passwordminimocaracteres">El password debe contener al menos 8 caracteres.</string>
+    <string name="cartel_parainiciarapagarwifi">Para iniciar debe apagar wifi&#8230;</string>
+    <string name="cartel_verifiquecontrasena">Verifique su contraseña. Recuerde que debe contener números y letras y longitud mínima de 8 caracteres.</string>
+    <string name="cartel_nombredebeser">Nombre debe ser entre 1 y 15 caracteres &#8230;"</string>
+    <string name="cartel_compruebesucodigo">Compruebe su código &#8230;</string>
+    <string name="cartel_essolounmomento">&#8230; es sólo un momento.</string>
+    <string name="cartel_nolicencia">No dispone de licencias para realizar la registración del equipo.</string>
+    <!-- TODO: Renombrar los "cartel_" a "banner_". -->
+    <string name="banner_verify_connection">Por favor verifique su conexión a Internet.</string>
+    <string name="default_notification_channel_id">adtfindu</string>
+    <string name="msg_token_fmt">token</string>
+    <string name="tracking_message">usted está siendo rastreado</string>
+    <string name="click_here_to_see_map">Click aqui para ver mapa</string>
+
+    <string name="image_description_android_phone">Pulsator image description</string>
+    <string name="text_olivia_is_with_you">Olivia te acompaña</string>
+    <string name="text_return">Volver</string>
+    <string name="hotword_text_one">Estoy aquí!</string>
+    <string name="hotword_text_two">Si estás en peligro di la palabra: Ayuda!</string>
+    <string name="text_start">Comenzar</string>
+    <string name="text_finalizer">Finalizar</string>
+    <string name="status_alert_0">No tienes configurado un domicilio. Contáctate con nuestro soporte ADT</string>
+    <string name="alert_status_2_text_one">Hola Soy\nOlivia !</string>
+    <string name="alert_status_2_text_two">Te acompañaré en tu regreso a casa</string>
+    <string name="alert_status_1_text">Vuelve a intentar cuando estés más cerca de tu casa.</string>
+    <string name="permission_denied_toast">Administrar permisos</string>
+    <string name="mic_permission_retry">" Se denegó el permiso del micrófono. ¿Quieres volver a intentarlo?"</string>
+    <string name="try_again">"Inténtalo de nuevo"</string>
+
+
+</resources>

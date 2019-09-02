@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_grey" >#706570</color>
+
+    <color name="slidetoact_white">#FFFFFF</color>
+    <color name="slidetoact_defaultAccent">#FF4081</color>
+    <color name="light_blue">#CED9F3</color>
+    <color name="blue_gradient_top_color">#A1CCED</color>
+    <color name="blue_gradient_bottom_color">#0161AB</color>
+    <color name="blue_gradient_mid_color">#3695E7</color>
+    <color name="color_blue">#044174</color>
+    <color name="color_sky_blue">#81b9df</color>
+</resources>

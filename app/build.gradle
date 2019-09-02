@@ -9,63 +9,64 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
-
-
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
-    defaultConfig {
-        applicationId 'com.zendesk.adtapp'
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 2
-        versionName '2.0'
+    compileSdkVersion 27
+    buildToolsVersion '28.0.3'
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
-    signingConfigs {
-        release {
-            storeFile file("../scripts/rtd.jks")
-            storePassword System.getenv("RTD_STORE_PASS")
-            keyAlias System.getenv("RTD_ALIAS")
-            keyPassword System.getenv("RTD_KEY_PASS")
-        }
+    defaultConfig {
+        applicationId "ar.com.localizart.android.report"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 22
+        versionName '2.2.0'
+        multiDexEnabled true
     }
     buildTypes {
         release {
-            if (file("../scripts/rtd.jks").exists()) {
-                signingConfig signingConfigs.release
-            }
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard/zendesk-sdk.pro', 'proguard/zendesk-chat-sdk.pro'
+            //            shrinkResources true // This must be first
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
         }
     }
-    lintOptions {
-        // Don't change this to false
-        abortOnError true
-        lintConfig file("lint.xml")
+    dependencies {
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        implementation 'com.android.support:appcompat-v7:23.4.0'
+        implementation files('libs/org.apache.http.legacy.jar')
+        implementation 'com.google.android.support:wearable:1.4.0'
+        implementation 'com.google.android.gms:play-services-wearable:9.0.1'
+        implementation 'com.google.firebase:firebase-core:16.0.1'
+        implementation 'com.google.firebase:firebase-messaging:17.3.4'
+        implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+        implementation 'com.crashlytics.sdk.android:answers:1.4.7'
+        implementation 'com.android.support:design:23.4.0'
+        implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+        //implementation 'commons-validator:commons-validator:1.6'
+        // pulse generator
+        implementation "pl.bclogic:pulsator4droid:1.0.3"
+
+        //implementation 'commons-validator:commons-validator:1.6'
+        // pulse generator
+        implementation "pl.bclogic:pulsator4droid:1.0.3"
+
+        implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+        wearApp project(':wearablecontroll')
     }
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE'
-    }
+    apply plugin: 'com.google.gms.google-services'
     productFlavors {
     }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:25.1.1'
-    compile 'com.android.support:design:25.1.1'
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:recyclerview-v7:25.1.1'
-    compile 'com.google.android.gms:play-services-gcm:10.0.1'
-    compile 'com.zopim.android:sdk:1.3.2.1'
-    compile 'com.zendesk:sdk:1.8.0.1'
-    compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
-        transitive = true;
-    }
 }
-
-apply plugin: 'com.google.gms.google-services'

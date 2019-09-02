@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView1"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+        android:layout_height="@dimen/welcome_edit_text_height"
+        android:text="@string/registrar_text_registrar"
+        android:layout_marginTop="@dimen/welcome_top_margin_offset"
+        android:gravity="center_vertical"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_thirty_two_dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        android:text="@string/registrado_text_exito"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ffc1c2c3" />
+
+
+    <!--<com.ebanx.swipebtn.SwipeButton
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/welcome_top_margin_offset"
+        android:id="@+id/llRegistradoButonFinalizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:inner_text="@string/registrado_text_buttonfinalizar"
+        app:inner_text_color="@color/blue"
+        app:inner_text_size="16sp"
+        app:inner_text_top_padding="18dp"
+        app:inner_text_bottom_padding="18dp"
+        app:inner_text_background="@drawable/shape_rounded"
+        app:button_image_disabled="@drawable/ic_arrow_forward_black_24dp"
+        app:button_left_padding="20dp"
+        app:button_right_padding="20dp"
+        app:button_top_padding="20dp"
+        app:button_bottom_padding="20dp"
+        app:button_background="@drawable/shape_button"
+        app:initial_state="enabled"
+        app:has_activate_state="true"
+        />-->
+
+    <ar.com.localizart.android.report.util.SlideToActView
+        android:id="@+id/llRegistradoButonFinalizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/welcome_top_margin_offset"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:area_margin="0dp"
+        app:outer_color="@color/light_blue"
+        app:inner_color="@color/blue"
+        app:text="@string/registrado_text_buttonfinalizar"
+        app:text_size="18sp"
+        app:slider_icon="@drawable/ic_arrow_forward_white_24dp"
+        app:slider_height="@dimen/slider_button_height"
+        app:slider_locked="false" />
+
+    </android.support.constraint.ConstraintLayout>

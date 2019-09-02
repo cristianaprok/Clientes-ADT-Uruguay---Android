@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/includeIniciar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        layout="@layout/layout_iniciar"
+        android:visibility="visible" />
+
+    <include
+        android:id="@+id/includeRegistrar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        layout="@layout/layout_registrar"
+        android:visibility="invisible" />
+
+    <include
+        android:id="@+id/includeConfirmacion"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        layout="@layout/layout_confirmacion"
+        android:visibility="invisible" />
+
+    <include
+        android:id="@+id/includeRegistrado"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        layout="@layout/layout_registrado"
+        android:visibility="invisible" />
+
+</FrameLayout>

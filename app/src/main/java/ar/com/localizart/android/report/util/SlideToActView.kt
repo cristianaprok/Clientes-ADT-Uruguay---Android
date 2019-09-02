@@ -1,0 +1,837 @@
+package ar.com.localizart.android.report.util
+
+
+
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
+import android.content.Context
+import android.content.res.Resources
+import android.content.res.TypedArray
+import android.graphics.*
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.Drawable
+import android.os.Build
+import android.support.annotation.RequiresApi
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat
+import android.support.graphics.drawable.VectorDrawableCompat
+import android.support.v4.content.ContextCompat
+import android.support.v4.widget.TextViewCompat
+import android.util.AttributeSet
+import android.util.TypedValue
+import android.util.Xml
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewOutlineProvider
+import android.view.animation.AnticipateOvershootInterpolator
+import android.view.animation.OvershootInterpolator
+import android.widget.TextView
+import ar.com.localizart.android.report.R
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserException
+
+/**
+ *  Class representing the custom view, SlideToActView.
+ *
+ *  SlideToActView is an elegant material designed slider, that enrich your app
+ *  with a "Slide-to-unlock" like widget.
+ */
+class SlideToActView @JvmOverloads constructor (
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = R.attr.slideToActViewStyle
+) : View(context, attrs, defStyleAttr) {
+
+    /* -------------------- LAYOUT BOUNDS -------------------- */
+
+    private var mDesiredSliderHeightDp: Float = 72F
+    private var mDesiredSliderWidthDp: Float = 280F
+    private var mDesiredSliderHeight: Int = 0
+    private var mDesiredSliderWidth: Int = 0
+
+    /* -------------------- MEMBERS -------------------- */
+
+    /** Height of the drawing area */
+    private var mAreaHeight: Int = 0
+    /** Width of the drawing area */
+    private var mAreaWidth: Int = 0
+    /** Actual Width of the drawing area, used for animations */
+    private var mActualAreaWidth: Int = 0
+    /** Border Radius, default to mAreaHeight/2, -1 when not initialized */
+    private var mBorderRadius: Int = -1
+    /** Margin of the cursor from the outer area */
+    private var mActualAreaMargin: Int
+    private val mOriginAreaMargin: Int
+
+    /** Text message */
+    var text: CharSequence = ""
+        set(value) {
+            field = value
+            mTextView.text = value
+            mTextPaint.set(mTextView.paint)
+            invalidate()
+        }
+
+    /** Typeface for the text field */
+    var typeFace = Typeface.NORMAL
+        set(value) {
+            field = value
+            mTextView.typeface = Typeface.create("sans-serif-light" , value)
+            mTextPaint.set(mTextView.paint)
+            invalidate()
+        }
+
+    /** Text Appearance used to fully customize the font */
+    var textAppearance : Int = 0
+        set(value) {
+            field = value
+            if (value != 0) {
+                TextViewCompat.setTextAppearance(mTextView, value)
+                mTextPaint.set(mTextView.paint)
+                mTextPaint.color = mTextView.currentTextColor
+            }
+        }
+
+    /** Outer color used by the slider (primary)*/
+    var outerColor: Int = 0
+        set(value) {
+            field = value
+            mOuterPaint.color = value
+            invalidate()
+        }
+
+    /** Inner color used by the slider (secondary, icon and border) */
+    var innerColor: Int = 0
+        set(value) {
+            field = value
+            mInnerPaint.color = value
+            invalidate()
+        }
+
+    var textColor: Int = 0
+        set(value) {
+            field = value
+            mTextView.setTextColor(value)
+            mTextPaint.color = textColor
+            invalidate()
+        }
+
+    /** Custom Icon color */
+    var iconColor: Int = 0
+        set(value) {
+            field = value
+            mDrawableArrow.setTint(value)
+            invalidate()
+        }
+
+    /** Slider cursor position (between 0 and (`mAreaWidth - mAreaHeight)) */
+    private var mPosition: Int = 0
+        set(value) {
+            field = value
+            if (mAreaWidth - mAreaHeight == 0) {
+                // Avoid 0 division
+                mPositionPerc = 0f
+                mPositionPercInv = 1f
+                return
+            }
+            mPositionPerc = value.toFloat() / (mAreaWidth - mAreaHeight).toFloat()
+            mPositionPercInv = 1 - value.toFloat() / (mAreaWidth - mAreaHeight).toFloat()
+            mEffectivePosition = mPosition
+        }
+
+    /** Slider cursor effective position. This is used to handle the `reversed` scenario. */
+    private var mEffectivePosition : Int = 0
+        set(value) {
+            field = if (isReversed) (mAreaWidth - mAreaHeight) - value else value
+        }
+
+    /** Positioning of text */
+    private var mTextYPosition = -1f
+    private var mTextXPosition = -1f
+
+    /** Private size for the text message */
+    private var mTextSize: Int = 0
+        set(value) {
+            field = value
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize.toFloat())
+            mTextPaint.set(mTextView.paint)
+        }
+
+    /** Slider cursor position in percentage (between 0f and 1f) */
+    private var mPositionPerc: Float = 0f
+    /** 1/mPositionPerc */
+    private var mPositionPercInv: Float = 1f
+
+    /* -------------------- ICONS -------------------- */
+
+    private val mIconMargin: Int
+    /** Margin for Arrow Icon */
+    private var mArrowMargin: Int
+    /** Current angle for Arrow Icon */
+    private var mArrowAngle: Float = 0f
+    /** Margin for Tick Icon */
+    private var mTickMargin: Int
+
+    /** Arrow drawable */
+    private val mDrawableArrow: VectorDrawableCompat
+
+    /** Tick drawable, is actually an AnimatedVectorDrawable */
+    private val mDrawableTick: Drawable
+    private var mFlagDrawTick: Boolean = false
+
+    /** The icon for the drawable */
+    private var mIcon: Int = R.drawable.slidetoact_ic_arrow
+
+    /* -------------------- PAINT & DRAW -------------------- */
+    /** Paint used for outer elements */
+    private val mOuterPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    /** Paint used for inner elements */
+    private val mInnerPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    /** Paint used for text elements */
+    private var mTextPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    /** TextView used for text elements */
+    private var mTextView: TextView
+
+    /** Inner rectangle (used for arrow rotation) */
+    private var mInnerRect: RectF
+    /** Outer rectangle (used for area drawing) */
+    private var mOuterRect: RectF
+    /** Grace value, when mPositionPerc > mGraceValue slider will perform the 'complete' operations */
+    private val mGraceValue: Float = 0.8F
+
+    /** Last X coordinate for the touch event */
+    private var mLastX: Float = 0F
+    /** Flag to understand if user is moving the slider cursor */
+    private var mFlagMoving: Boolean = false
+
+    /** Private flag to check if the slide gesture have been completed */
+    private var mIsCompleted = false
+
+    /** Public flag to lock the slider */
+    var isLocked = false
+
+    /** Public flag to reverse the slider by 180 degree */
+    var isReversed = false
+        set(value) {
+            field = value
+            // We reassign the position field to trigger the re-computation of the effective position.
+            mPosition = mPosition
+            invalidate()
+        }
+
+    /** Public flag to lock the rotation icon */
+    var isRotateIcon = true
+
+    /** Public flag to enable complete animation */
+    var isAnimateCompletion = true
+
+    /** Public Slide event listeners */
+    var onSlideToActAnimationEventListener: OnSlideToActAnimationEventListener? = null
+    var onSlideCompleteListener: OnSlideCompleteListener? = null
+    var onSlideResetListener: OnSlideResetListener? = null
+    var onSlideUserFailedListener: OnSlideUserFailedListener? = null
+
+    init {
+        val actualOuterColor : Int
+        val actualInnerColor : Int
+        val actualTextColor : Int
+        val actualIconColor : Int
+
+        mTextView = TextView(context)
+        mTextPaint = mTextView.paint
+
+        val layoutAttrs: TypedArray = context.theme.obtainStyledAttributes(attrs,
+                R.styleable.SlideToActView, defStyleAttr, R.style.SlideToActView)
+        try {
+            mDesiredSliderHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mDesiredSliderHeightDp, resources.displayMetrics).toInt()
+            mDesiredSliderWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mDesiredSliderWidthDp, resources.displayMetrics).toInt()
+            mDesiredSliderHeight = layoutAttrs.getDimensionPixelSize(R.styleable.SlideToActView_slider_height, mDesiredSliderHeight)
+
+            mBorderRadius = layoutAttrs.getDimensionPixelSize(R.styleable.SlideToActView_border_radius, -1)
+
+            val defaultOuter = ContextCompat.getColor(this.context, R.color.slidetoact_defaultAccent)
+            val defaultWhite = ContextCompat.getColor(this.context, R.color.slidetoact_white)
+
+            actualOuterColor = layoutAttrs.getColor(R.styleable.SlideToActView_outer_color, defaultOuter)
+            actualInnerColor = layoutAttrs.getColor(R.styleable.SlideToActView_inner_color, defaultWhite)
+
+            // For text color, check if the `text_color` is set.
+            // if not check if the `outer_color` is set.
+            // if not, default to white.
+            actualTextColor = when {
+                layoutAttrs.hasValue(R.styleable.SlideToActView_text_color) ->
+                    layoutAttrs.getColor(R.styleable.SlideToActView_text_color, defaultWhite)
+                layoutAttrs.hasValue(R.styleable.SlideToActView_inner_color) -> actualInnerColor
+                else -> defaultWhite
+            }
+
+            text = layoutAttrs.getString(R.styleable.SlideToActView_text)
+            typeFace = layoutAttrs.getInt(R.styleable.SlideToActView_text_style, 0)
+            mTextSize = layoutAttrs.getDimensionPixelSize(R.styleable.SlideToActView_text_size, resources.getDimensionPixelSize(R.dimen.slidetoact_default_text_size))
+            textColor = actualTextColor
+
+            // TextAppearance is the last as will have precedence over everything text related.
+            textAppearance = layoutAttrs.getResourceId(R.styleable.SlideToActView_text_appearance, 0)
+
+            isLocked = layoutAttrs.getBoolean(R.styleable.SlideToActView_slider_locked, false)
+            isReversed = layoutAttrs.getBoolean(R.styleable.SlideToActView_slider_reversed, false)
+            isRotateIcon = layoutAttrs.getBoolean(R.styleable.SlideToActView_rotate_icon, true)
+            isAnimateCompletion = layoutAttrs.getBoolean(R.styleable.SlideToActView_animate_completion, true)
+
+            mOriginAreaMargin = layoutAttrs.getDimensionPixelSize(R.styleable.SlideToActView_area_margin, resources.getDimensionPixelSize(R.dimen.slidetoact_default_area_margin))
+            mActualAreaMargin = mOriginAreaMargin
+
+            mIcon = layoutAttrs.getResourceId(R.styleable.SlideToActView_slider_icon, R.drawable.slidetoact_ic_arrow)
+
+            // For icon color. check if the `slide_icon_color` is set.
+            // if not check if the `outer_color` is set.
+            // if not, default to defaultOuter.
+            actualIconColor = when {
+                layoutAttrs.hasValue(R.styleable.SlideToActView_slider_icon_color) ->
+                    layoutAttrs.getColor(R.styleable.SlideToActView_slider_icon_color, defaultOuter)
+                layoutAttrs.hasValue(R.styleable.SlideToActView_outer_color) -> actualOuterColor
+                else -> defaultOuter
+            }
+        } finally {
+            layoutAttrs.recycle()
+        }
+
+        mInnerRect = RectF((mActualAreaMargin + mEffectivePosition).toFloat(),
+                mActualAreaMargin.toFloat(),
+                (mAreaHeight + mEffectivePosition).toFloat() - mActualAreaMargin.toFloat(),
+                mAreaHeight.toFloat() - mActualAreaMargin.toFloat())
+
+        mOuterRect = RectF(mActualAreaWidth.toFloat(), 0f, mAreaWidth.toFloat() - mActualAreaWidth.toFloat(), mAreaHeight.toFloat())
+
+        mDrawableArrow = parseVectorDrawableCompat(context.resources, mIcon, context.theme)
+
+        // Due to bug in the AVD implementation in the support library, we use it only for API < 21
+        mDrawableTick = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            context.resources.getDrawable(R.drawable.slidetoact_animated_ic_check, context.theme) as AnimatedVectorDrawable
+        } else {
+            AnimatedVectorDrawableCompat.create(context, R.drawable.slidetoact_animated_ic_check)!!
+        }
+
+        mTextPaint.textAlign = Paint.Align.CENTER
+
+        outerColor = actualOuterColor
+        innerColor = actualInnerColor
+        iconColor = actualIconColor
+
+        mIconMargin = context.resources.getDimensionPixelSize(R.dimen.slidetoact_default_icon_margin)
+        mArrowMargin = mIconMargin
+        mTickMargin = mIconMargin
+
+        // This outline provider force removal of shadow
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            outlineProvider = SlideToActOutlineProvider()
+        }
+    }
+
+    private fun parseVectorDrawableCompat(res: Resources, resId: Int, theme: Resources.Theme): VectorDrawableCompat {
+        val parser = res.getXml(resId)
+        val attrs = Xml.asAttributeSet(parser)
+        var type: Int = parser.next()
+        while (type != XmlPullParser.START_TAG && type != XmlPullParser.END_DOCUMENT) {
+            type = parser.next()
+        }
+        if (type != XmlPullParser.START_TAG) {
+            throw XmlPullParserException("No start tag found")
+        }
+        return VectorDrawableCompat.createFromXmlInner(res, parser, attrs, theme)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val width: Int
+
+        width = when (widthMode) {
+            MeasureSpec.EXACTLY -> widthSize
+            MeasureSpec.AT_MOST -> Math.min(mDesiredSliderWidth, widthSize)
+            MeasureSpec.UNSPECIFIED -> mDesiredSliderWidth
+            else -> mDesiredSliderWidth
+        }
+        setMeasuredDimension(width, mDesiredSliderHeight)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        mAreaWidth = w
+        mAreaHeight = h
+        if (mBorderRadius == -1) // Round if not set up
+            mBorderRadius = h / 2
+
+        // Text horizontal/vertical positioning (both centered)
+        mTextXPosition = mAreaWidth.toFloat() / 2
+        mTextYPosition = (mAreaHeight.toFloat() / 2) - (mTextPaint.descent() + mTextPaint.ascent()) / 2
+
+        // Make sure the position is recomputed.
+        mPosition = 0
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        if (canvas == null) return
+
+        // Outer area
+        mOuterRect.set(mActualAreaWidth.toFloat(), 0f, mAreaWidth.toFloat() - mActualAreaWidth.toFloat(), mAreaHeight.toFloat())
+        canvas.drawRoundRect(mOuterRect, mBorderRadius.toFloat(), mBorderRadius.toFloat(), mOuterPaint)
+
+        // Text alpha
+        mTextPaint.alpha = (255 * mPositionPercInv).toInt()
+        // Checking if the TextView has a Transformation method applied (e.g. AllCaps).
+        val textToDraw = mTextView.transformationMethod?.getTransformation(text, mTextView) ?: text
+        canvas.drawText(textToDraw, 0, textToDraw.length, mTextXPosition, mTextYPosition, mTextPaint)
+
+        // Inner Cursor
+        // ratio is used to compute the proper border radius for the inner rect (see #8).
+        val ratio = (mAreaHeight - 2 * mActualAreaMargin).toFloat() / mAreaHeight.toFloat()
+        mInnerRect.set((mActualAreaMargin + mEffectivePosition).toFloat(),
+                mActualAreaMargin.toFloat(),
+                (mAreaHeight + mEffectivePosition).toFloat() - mActualAreaMargin.toFloat(),
+                mAreaHeight.toFloat() - mActualAreaMargin.toFloat())
+        canvas.drawRoundRect(mInnerRect, mBorderRadius.toFloat() * ratio, mBorderRadius.toFloat() * ratio, mInnerPaint)
+
+        // Arrow angle
+        // We compute the rotation of the arrow and we apply .rotate transformation on the canvas.
+        canvas.save()
+        if (isReversed) {
+            canvas.rotate(180f, mInnerRect.centerX(), mInnerRect.centerY())
+        }
+        if (isRotateIcon) {
+            mArrowAngle = 180 * mPositionPerc * (if (isReversed) 1 else -1)
+            canvas.rotate(mArrowAngle, mInnerRect.centerX(), mInnerRect.centerY())
+        }
+        mDrawableArrow.setBounds(mInnerRect.left.toInt() + mArrowMargin,
+                mInnerRect.top.toInt() + mArrowMargin,
+                mInnerRect.right.toInt() - mArrowMargin,
+                mInnerRect.bottom.toInt() - mArrowMargin)
+        if (mDrawableArrow.bounds.left <= mDrawableArrow.bounds.right &&
+                mDrawableArrow.bounds.top <= mDrawableArrow.bounds.bottom) {
+            mDrawableArrow.draw(canvas)
+        }
+        canvas.restore()
+
+        // Tick drawing
+        mDrawableTick.setBounds(
+                mActualAreaWidth + mTickMargin,
+                mTickMargin,
+                mAreaWidth - mTickMargin - mActualAreaWidth,
+                mAreaHeight - mTickMargin)
+
+        // Tinting the tick with the proper implementation method
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDrawableTick.setTint(innerColor)
+        } else {
+            (mDrawableTick as AnimatedVectorDrawableCompat).setTint(innerColor)
+        }
+        if (mFlagDrawTick) {
+            mDrawableTick.draw(canvas)
+        }
+    }
+
+    // Intentionally override `performClick` to do not lose accessibility support.
+    @Suppress("RedundantOverride")
+    override fun performClick(): Boolean {
+        return super.performClick()
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (event != null && isEnabled) {
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    if (checkInsideButton(event.x, event.y)) {
+                        mFlagMoving = true
+                        mLastX = event.x
+                        parent.requestDisallowInterceptTouchEvent(true)
+                    } else {
+                        // Clicking outside the area -> User failed, notify the listener.
+                        onSlideUserFailedListener?.onSlideFailed(this, true)
+                    }
+                    performClick()
+                }
+                MotionEvent.ACTION_UP -> {
+                    parent.requestDisallowInterceptTouchEvent(false)
+                    if ((mPosition > 0 && isLocked) || (mPosition > 0 && mPositionPerc < mGraceValue)) {
+                        // Check for grace value
+                        val positionAnimator = ValueAnimator.ofInt(mPosition, 0)
+                        positionAnimator.duration = 300
+                        positionAnimator.addUpdateListener {
+                            mPosition = it.animatedValue as Int
+                            invalidateArea()
+                        }
+                        positionAnimator.start()
+                    } else if (mPosition > 0 && mPositionPerc >= mGraceValue) {
+                        isEnabled = false // Fully disable touch events
+                        startAnimationComplete()
+                    } else if (mFlagMoving && mPosition == 0) {
+                        // mFlagMoving == true means user successfully grabbed the slider,
+                        // but mPosition == 0 means that the slider is released at the beginning
+                        // so either a Tap or the user slided back.
+                        onSlideUserFailedListener?.onSlideFailed(this, false)
+                    }
+                    mFlagMoving = false
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    if (mFlagMoving) {
+                        val diffX = event.x - mLastX
+                        mLastX = event.x
+                        increasePosition(diffX.toInt())
+                        invalidateArea()
+                    }
+                }
+            }
+            return true
+        }
+        return super.onTouchEvent(event)
+    }
+
+    private fun invalidateArea() {
+        invalidate(mOuterRect.left.toInt(), mOuterRect.top.toInt(), mOuterRect.right.toInt(), mOuterRect.bottom.toInt())
+    }
+
+    /**
+     * Private method to check if user has touched the slider cursor
+     * @param x The x coordinate of the touch event
+     * @param y The y coordinate of the touch event
+     * @return A boolean that informs if user has pressed or not
+     */
+    private fun checkInsideButton(x: Float, y: Float): Boolean {
+        return (0 < y && y < mAreaHeight && mEffectivePosition < x && x < (mAreaHeight + mEffectivePosition))
+    }
+
+    /**
+     * Private method for increasing/decreasing the position
+     * Ensure that position never exits from its range [0, (mAreaWidth - mAreaHeight)].
+     *
+     * Please note that the increment is inverted in case of a reversed slider.
+     *
+     * @param inc Increment to be performed (negative if it's a decrement)
+     */
+    private fun increasePosition(inc: Int) {
+        mPosition = if (isReversed) mPosition - inc else mPosition + inc
+        if (mPosition < 0)
+            mPosition = 0
+        if (mPosition > (mAreaWidth - mAreaHeight))
+            mPosition = mAreaWidth - mAreaHeight
+    }
+
+    /**
+     * Private method that is performed when user completes the slide
+     */
+    private fun startAnimationComplete() {
+        val animSet = AnimatorSet()
+
+        // Animator that moves the cursor
+        val finalPositionAnimator = ValueAnimator.ofInt(mPosition, mAreaWidth - mAreaHeight)
+        finalPositionAnimator.addUpdateListener {
+            mPosition = it.animatedValue as Int
+            invalidateArea()
+        }
+
+        // Animator that bounce away the cursors
+        val marginAnimator = ValueAnimator.ofInt(mActualAreaMargin, (mInnerRect.width() / 2).toInt() + mActualAreaMargin)
+        marginAnimator.addUpdateListener {
+            mActualAreaMargin = it.animatedValue as Int
+            invalidateArea()
+        }
+        marginAnimator.interpolator = AnticipateOvershootInterpolator(2f)
+
+        // Animator that reduces the outer area (to right)
+        val areaAnimator = ValueAnimator.ofInt(0, (mAreaWidth - mAreaHeight) / 2)
+        areaAnimator.addUpdateListener {
+            mActualAreaWidth = it.animatedValue as Int
+            if (Build.VERSION.SDK_INT >= 21) {
+                invalidateOutline()
+            }
+            invalidateArea()
+        }
+
+        val tickAnimator: ValueAnimator
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
+            // Fallback not using AVD.
+            tickAnimator = ValueAnimator.ofInt(0, 255)
+            tickAnimator.addUpdateListener {
+                mTickMargin = mIconMargin
+                mFlagDrawTick = true
+                mDrawableTick.alpha = it.animatedValue as Int
+                invalidateArea()
+            }
+        } else {
+            // Used AVD Animation.
+            tickAnimator = ValueAnimator.ofInt(0)
+            tickAnimator.addUpdateListener {
+                if (!mFlagDrawTick) {
+                    mTickMargin = mIconMargin
+                    mFlagDrawTick = true
+                    startTickAnimation()
+                    invalidateArea()
+                }
+            }
+        }
+
+        val animators = mutableListOf<Animator>()
+        if (mPosition < mAreaWidth - mAreaHeight) {
+            animators.add(finalPositionAnimator)
+        }
+
+        if (isAnimateCompletion) {
+            animators.add(marginAnimator)
+            animators.add(areaAnimator)
+            animators.add(tickAnimator)
+        }
+
+        animSet.playSequentially(*animators.toTypedArray())
+
+        animSet.duration = 300
+
+        animSet.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(p0: Animator?) {
+                onSlideToActAnimationEventListener?.onSlideCompleteAnimationStarted(this@SlideToActView, mPositionPerc)
+            }
+
+            override fun onAnimationCancel(p0: Animator?) {
+            }
+
+            override fun onAnimationEnd(p0: Animator?) {
+                mIsCompleted = true
+                onSlideToActAnimationEventListener?.onSlideCompleteAnimationEnded(this@SlideToActView)
+                onSlideCompleteListener?.onSlideComplete(this@SlideToActView)
+            }
+
+            override fun onAnimationRepeat(p0: Animator?) {
+            }
+        })
+        animSet.start()
+    }
+
+    /**
+     * Method that completes the slider
+     */
+    fun completeSlider() {
+        if (!mIsCompleted) {
+            startAnimationComplete()
+        }
+    }
+
+    /**
+     * Method that reset the slider
+     */
+    fun resetSlider() {
+        if (mIsCompleted) {
+            startAnimationReset()
+        }
+    }
+
+    /**
+     * Method that returns the 'mIsCompleted' flag
+     * @return True if slider is in the Complete state
+     */
+    fun isCompleted(): Boolean {
+        return this.mIsCompleted
+    }
+
+    /**
+     * Private method that is performed when you want to reset the cursor
+     */
+    private fun startAnimationReset() {
+        mIsCompleted = false
+        val animSet = AnimatorSet()
+
+        // Animator that enlarges the outer area
+        val tickAnimator = ValueAnimator.ofInt(mTickMargin, mAreaWidth / 2)
+        tickAnimator.addUpdateListener {
+            mTickMargin = it.animatedValue as Int
+            invalidateArea()
+        }
+
+        // Animator that enlarges the outer area
+        val areaAnimator = ValueAnimator.ofInt(mActualAreaWidth, 0)
+        areaAnimator.addUpdateListener {
+            // Now we can hide the tick till the next complete
+            mFlagDrawTick = false
+            mActualAreaWidth = it.animatedValue as Int
+            if (Build.VERSION.SDK_INT >= 21) {
+                invalidateOutline()
+            }
+            invalidateArea()
+        }
+
+        val positionAnimator = ValueAnimator.ofInt(mPosition, 0)
+        positionAnimator.addUpdateListener {
+            mPosition = it.animatedValue as Int
+            invalidateArea()
+        }
+
+        // Animator that re-draw the cursors
+        val marginAnimator = ValueAnimator.ofInt(mActualAreaMargin, mOriginAreaMargin)
+        marginAnimator.addUpdateListener {
+            mActualAreaMargin = it.animatedValue as Int
+            invalidateArea()
+        }
+        marginAnimator.interpolator = AnticipateOvershootInterpolator(2f)
+
+        // Animator that makes the arrow appear
+        val arrowAnimator = ValueAnimator.ofInt(mArrowMargin, mIconMargin)
+        arrowAnimator.addUpdateListener {
+            mArrowMargin = it.animatedValue as Int
+            invalidateArea()
+        }
+
+
+        marginAnimator.interpolator = OvershootInterpolator(2f)
+
+        if (isAnimateCompletion) {
+            animSet.playSequentially(tickAnimator, areaAnimator, positionAnimator, marginAnimator, arrowAnimator)
+        } else {
+            animSet.playSequentially(positionAnimator)
+        }
+
+        animSet.duration = 300
+
+        animSet.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(p0: Animator?) {
+                onSlideToActAnimationEventListener?.onSlideResetAnimationStarted(this@SlideToActView)
+            }
+
+            override fun onAnimationCancel(p0: Animator?) {
+            }
+
+            override fun onAnimationEnd(p0: Animator?) {
+                isEnabled = true
+                stopTickAnimation()
+                onSlideToActAnimationEventListener?.onSlideResetAnimationEnded(this@SlideToActView)
+                onSlideResetListener?.onSlideReset(this@SlideToActView)
+            }
+
+            override fun onAnimationRepeat(p0: Animator?) {
+            }
+        })
+        animSet.start()
+    }
+
+    /**
+     * Private method to start the Tick AVD animation, with the proper library based on API level.
+     */
+    private fun startTickAnimation() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            (mDrawableTick as AnimatedVectorDrawable).start()
+//        } else {
+//            (mDrawableTick as AnimatedVectorDrawableCompat).start()
+//        }
+    }
+
+    /**
+     * Private method to stop the Tick AVD animation, with the proper library based on API level.
+     */
+    private fun stopTickAnimation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            (mDrawableTick as AnimatedVectorDrawable).stop()
+        } else {
+            (mDrawableTick as AnimatedVectorDrawableCompat).stop()
+        }
+    }
+
+    /**
+     * Event handler for the SlideToActView animation events.
+     * This event handler can be used to react to animation events from the Slide,
+     * the event will be fired whenever an animation start/end.
+     */
+    interface OnSlideToActAnimationEventListener {
+
+        /**
+         * Called when the slide complete animation start. You can perform actions during the complete
+         * animations.
+         *
+         * @param view The SlideToActView who created the event
+         * @param threshold The mPosition (in percentage [0f,1f]) where the user has left the cursor
+         */
+        fun onSlideCompleteAnimationStarted(view: SlideToActView, threshold: Float)
+
+        /**
+         * Called when the slide complete animation finish. At this point the slider is stuck in the
+         * center of the slider.
+         *
+         * @param view The SlideToActView who created the event
+         */
+        fun onSlideCompleteAnimationEnded(view: SlideToActView)
+
+        /**
+         * Called when the slide reset animation start. You can perform actions during the reset
+         * animations.
+         *
+         * @param view The SlideToActView who created the event
+         */
+        fun onSlideResetAnimationStarted(view: SlideToActView)
+
+        /**
+         * Called when the slide reset animation finish. At this point the slider will be in the
+         * ready on the left of the screen and user can interact with it.
+         *
+         * @param view The SlideToActView who created the event
+         */
+        fun onSlideResetAnimationEnded(view: SlideToActView)
+    }
+
+    /**
+     * Event handler for the slide complete event.
+     * Use this handler to react to slide event
+     */
+    interface OnSlideCompleteListener {
+        /**
+         * Called when user performed the slide
+         * @param view The SlideToActView who created the event
+         */
+        fun onSlideComplete(view: SlideToActView)
+    }
+
+    /**
+     * Event handler for the slide react event.
+     * Use this handler to inform the user that he can slide again.
+     */
+    interface OnSlideResetListener {
+        /**
+         * Called when slides is again available
+         * @param view The SlideToActView who created the event
+         */
+        fun onSlideReset(view: SlideToActView)
+    }
+
+    /**
+     * Event handler for the user failure with the Widget.
+     * You can subscribe to this event to get notified when the user is wrongly
+     * interacting with the widget to eventually educate it:
+     *
+     * - The user clicked outside of the cursor
+     * - The user slided but left when the cursor was back to zero
+     *
+     * You can use this listener to show a Toast or other messages.
+     */
+    interface OnSlideUserFailedListener {
+        /**
+         * Called when user failed to interact with the slider slide
+         * @param view The SlideToActView who created the event
+         * @param isOutside True if user pressed outside the cursor
+         */
+        fun onSlideFailed(view: SlideToActView, isOutside: Boolean)
+    }
+
+    /**
+     * Outline provider for the SlideToActView.
+     * This outline will suppress the shadow (till the moment when Android will support
+     * updatable Outlines).
+     */
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private inner class SlideToActOutlineProvider : ViewOutlineProvider() {
+
+        override fun getOutline(view: View?, outline: Outline?) {
+            if (view == null || outline == null)
+                return
+
+            outline.setRoundRect(mActualAreaWidth, 0, mAreaWidth - mActualAreaWidth, mAreaHeight,mBorderRadius.toFloat())
+        }
+    }
+}

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/imageConfirmacionButtonSiguiente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="30dip"
+            android:layout_marginTop="10dip"
+            android:orientation="vertical">
+
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/textNumbre"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/welcome_edit_text_height"
+                android:layout_marginTop="@dimen/welcome_top_margin_offset"
+                android:gravity="center_vertical"
+                android:text="@string/confirmacion_text_confirmacioncuenta"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textConfirmacionCuentaEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/confirmacion_text_confirmacionsenvio"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffc1c2c3"
+                app:layout_constraintTop_toBottomOf="@+id/textNumbre"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="@dimen/margin_thirty_two_dp"
+                android:gravity="center"
+                android:text="@string/confirmacion_text_confirme"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffc1c2c3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textConfirmacionCuentaEmail" />
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black"
+                android:theme="@style/TextLabel"
+                app:hintTextAppearance="@style/mytext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias=".3"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/editTextConfirmacionCodigo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/black"
+                    android:textColorHint="@color/color_grey"
+                    android:hint="@string/confirmacion_text_codigohint"
+                    android:inputType="number"
+                    android:textColor="@color/black">
+
+                    <requestFocus />
+                </android.support.design.widget.TextInputEditText>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                app:layout_constraintTop_toBottomOf="@+id/tilCode"
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirmacion_text_ninguncodigo"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffc1c2c3"
+                android:textSize="12sp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="280dp" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/imageConfirmacionButtonSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        app:backgroundTint="@color/blue"
+        android:src="@drawable/ic_arrow_forward_white_24dp"
+        android:theme="@style/Theme.AppCompat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageConfirmarButtonAtras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:padding="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

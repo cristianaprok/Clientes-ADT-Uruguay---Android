@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/imageRegistrarButtonSiguiente"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="30dip"
+        android:layout_height="0dp" >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/textNumbre"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                android:layout_height="@dimen/welcome_edit_text_height"
+                android:text="@string/registrar_edit_nombrehint"
+                android:layout_marginTop="@dimen/welcome_top_margin_offset"
+                android:gravity="center_vertical"
+                android:textStyle="bold" />
+
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/textRegistrarParagraph1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/registrar_text_paragraph1"
+                android:textColor="@color/color_grey"
+                app:layout_constraintTop_toBottomOf="@+id/textNumbre" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black"
+                android:theme="@style/TextLabel"
+                app:hintTextAppearance="@style/mytext"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                app:layout_constraintTop_toBottomOf="@+id/textRegistrarParagraph1"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/editTextRegistrarNombre"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/black"
+                    android:hint="@string/registrar_edit_nombrehint"
+                    android:inputType="text"
+                    android:textColor="@color/black">
+
+                    <requestFocus />
+                </android.support.design.widget.TextInputEditText>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/imageRegistrarButtonAtras"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:layout_width="wrap_content"
+        android:padding="@dimen/activity_vertical_margin"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/imageRegistrarButtonSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/blue"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_arrow_forward_white_24dp"
+        android:theme="@style/Theme.AppCompat" />
+</android.support.constraint.ConstraintLayout>

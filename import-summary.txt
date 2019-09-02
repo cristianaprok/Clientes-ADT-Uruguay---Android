@@ -1,0 +1,173 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .gitignore
+* .idea/
+* .idea/.name
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/libraries/
+* .idea/libraries/android_support_v4.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* README.md
+* adtfindu_android.iml
+* certs/
+* certs/localizart.keystore
+* certs/localizartJM.keystore
+* out/
+* out/production/
+* out/production/adtfindu_android/
+* out/production/adtfindu_android/adtfindu_android.apk
+* out/production/adtfindu_android/adtfindu_android.unaligned.apk
+* out/production/adtfindu_android/ar/
+* out/production/adtfindu_android/ar/com/
+* out/production/adtfindu_android/ar/com/localizart/
+* out/production/adtfindu_android/ar/com/localizart/android/
+* out/production/adtfindu_android/ar/com/localizart/android/report/
+* out/production/adtfindu_android/ar/com/localizart/android/report/BuildConfig.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/R$anim.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/R$attr.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/R$dimen.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/R$drawable.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/R$id.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/R$layout.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/R$string.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/R$style.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/R.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/config/
+* out/production/adtfindu_android/ar/com/localizart/android/report/config/Configuration$OnConfigurationChangeListener.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/config/Configuration.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/enums/
+* out/production/adtfindu_android/ar/com/localizart/android/report/enums/BatteryStatus.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/enums/ConfigurationConstants$PackageType.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/enums/ConfigurationConstants.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/enums/Constants.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/enums/UtilConstants.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/info/
+* out/production/adtfindu_android/ar/com/localizart/android/report/info/AntennaDataHandler.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/info/DataHandler.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/info/DataSender$1.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/info/DataSender$ServerReportTask.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/info/DataSender.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/info/LocationDataHandler.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/info/WifiDataHandler$1.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/info/WifiDataHandler.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/listeners/
+* out/production/adtfindu_android/ar/com/localizart/android/report/listeners/CellListener.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/listeners/GPSListener.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/listeners/LocationProviderListener.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/listeners/NetworkListener.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/listeners/ScanWifiListener.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/listeners/UrlResponseListener.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/power/
+* out/production/adtfindu_android/ar/com/localizart/android/report/power/WakeLock.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/receivers/
+* out/production/adtfindu_android/ar/com/localizart/android/report/receivers/BatteryReceiver.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/receivers/BootCompleteReceiver.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/receivers/UpdateReceiver.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/service/
+* out/production/adtfindu_android/ar/com/localizart/android/report/service/InformationService$AlarmReceiver$1.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/service/InformationService$AlarmReceiver$2.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/service/InformationService$AlarmReceiver.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/service/InformationService$ScreenReceiver.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/service/InformationService$ShutdownReceiver.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/service/InformationService.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/service/PowerClickEvent.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/InformationActivity$1.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/InformationActivity.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$1.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$10$1.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$10.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$11$1.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$11.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$12$1.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$12.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$13.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$14.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$2.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$3.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$4.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$5.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$6.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$7.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$8.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity$9.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/ui/IniciarActivity.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/util/
+* out/production/adtfindu_android/ar/com/localizart/android/report/util/Util.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/vo/
+* out/production/adtfindu_android/ar/com/localizart/android/report/vo/AntennaVO.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/vo/BatteryVO.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/vo/GPSVO.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/vo/URLSerializable.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/vo/URLVO.class
+* out/production/adtfindu_android/ar/com/localizart/android/report/vo/WifiVO.class
+* out/production/adtfindu_android/com/
+* out/production/adtfindu_android/com/loopj/
+* out/production/adtfindu_android/com/loopj/android/
+* out/production/adtfindu_android/com/loopj/android/http/
+* out/production/adtfindu_android/com/loopj/android/http/AsyncHttpClient$1.class
+* out/production/adtfindu_android/com/loopj/android/http/AsyncHttpClient$2.class
+* out/production/adtfindu_android/com/loopj/android/http/AsyncHttpClient$InflatingEntity.class
+* out/production/adtfindu_android/com/loopj/android/http/AsyncHttpClient.class
+* out/production/adtfindu_android/com/loopj/android/http/AsyncHttpRequest.class
+* out/production/adtfindu_android/com/loopj/android/http/AsyncHttpResponseHandler$1.class
+* out/production/adtfindu_android/com/loopj/android/http/AsyncHttpResponseHandler.class
+* out/production/adtfindu_android/com/loopj/android/http/BinaryHttpResponseHandler.class
+* out/production/adtfindu_android/com/loopj/android/http/JsonHttpResponseHandler.class
+* out/production/adtfindu_android/com/loopj/android/http/PersistentCookieStore.class
+* out/production/adtfindu_android/com/loopj/android/http/RequestParams$FileWrapper.class
+* out/production/adtfindu_android/com/loopj/android/http/RequestParams.class
+* out/production/adtfindu_android/com/loopj/android/http/RetryHandler.class
+* out/production/adtfindu_android/com/loopj/android/http/SerializableCookie.class
+* out/production/adtfindu_android/com/loopj/android/http/SimpleMultipartEntity.class
+* out/production/adtfindu_android/com/loopj/android/http/SyncHttpClient$1.class
+* out/production/adtfindu_android/com/loopj/android/http/SyncHttpClient.class
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:18.0.0
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

@@ -1,1 +1,145 @@
-<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"          xmlns:tools="http://schemas.android.com/tools"          package="com.zendesk.adtapp" >    <!-- Storage permissions needed by Chat SDK -->    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>    <uses-permission android:name="android.permission.WAKE_LOCK"/>    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />    <uses-permission android:name="android.permission.INTERNET"/>    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>    <permission android:name="${applicationId}.permission.C2D_MESSAGE" android:protectionLevel="signature"/>    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE"/>    <application        android:allowBackup="true"        android:icon="@drawable/ic_launcher"        android:label="@string/app_name"        tools:replace="android:theme"        android:theme="@style/AppTheme"        android:name=".Global">        <activity            android:name=".ui.MainActivity"            android:label="@string/app_name"            android:screenOrientation="portrait">            <intent-filter>                <action android:name="android.intent.action.MAIN" />                <category android:name="android.intent.category.LAUNCHER" />            </intent-filter>        </activity>        <activity android:name=".ui.HomeActivity"            android:label="Crear ticket" />        <activity android:name=".ui.CreateTicketActivity"            android:label="Crear ticket" />        <activity android:name=".ui.RootViewActivity"            android:label="Main" />        <activity            android:name=".ui.CreateDateActivity"            android:label="@string/title_activity_create_date" />        <receiver android:name=".LocalNotification" />        <activity            android:name=".ui.CreateProfileActivity"            android:label="@string/title_activity_create_profile" />        <activity            android:name=".ui.MyApplicationActivity"            android:label="@string/fragment_main_btn_my_app" />        <activity            android:name=".ui.ForgotPasswordActivity"            android:label="@string/fragment_forgot_pass" />        <activity            android:name=".ui.ProfileActivity"            android:label="@string/title_activity_profile" />        <receiver            android:name="com.google.android.gms.gcm.GcmReceiver"            android:exported="true"            android:permission="com.google.android.c2dm.permission.SEND" >            <intent-filter>                <action android:name="com.google.android.c2dm.intent.RECEIVE" />                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />                <category android:name="${applicationId}" />            </intent-filter>        </receiver>        <service            android:name=".push.ZendeskGcmListenerService"            android:exported="false" >            <intent-filter>                <action android:name="com.google.android.c2dm.intent.RECEIVE" />            </intent-filter>        </service>        <service            android:name=".push.ZendeskInstanceIdListenerService"            android:exported="false">            <intent-filter>                <action android:name="com.google.android.gms.iid.InstanceID"/>            </intent-filter>        </service>        <service android:name=".push.RegistrationIntentService" />        <meta-data            android:name="io.fabric.ApiKey"            android:value="704e8f6cf134adf179899ccc5f061446e7ea4e91" />    </application></manifest>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="ar.com.localizart.android.report"
+    android:versionCode="15"
+    android:versionName="2.0.4">
+
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.PREVENT_POWER_KEY" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- Permission required to receive the boot completed intent. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- To keep the CPU alive to make this service work. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- To read phone data (IMEI, LAC, etc.) -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- To read GPS location. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- To read location information from the network provider instead of the GPS one: -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- To connect to Internet to send phone data -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- We don't need the BATTERY_STATS permission to read the battery status, this permission is only used internally by Android. -->
+    <!-- <uses-permission android:name="android.permission.BATTERY_STATS" /> -->
+    <!-- //JM solo para TEST quitar si no hace falta para produccion -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- //JM -->
+    <!-- <uses-permission android:name="android.permission.SEND_SMS"/> -->
+    <!-- //JM -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="Manifest.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- To read logs for the power event -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".util.ADTApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.HotWordActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+
+            android:name=".ui.IniciarActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- JM  ahora la activity de inicio es iniciarActivity -->
+        <activity
+            android:name=".ui.InformationActivity"
+            android:label="@string/app_name" />
+        <activity android:name=".ui.AfterConfirmingActivity" />
+        <activity android:name=".ui.HotwordActivity" />
+        <activity android:name=".ui.StatusActivity" />
+
+        <service
+            android:name=".service.MyJobService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.MyJobServicePreM"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".service.InformationService"
+            android:enabled="true" />
+
+        <receiver android:name=".receivers.BootCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receivers.UpdateReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data
+                    android:path="ar.com.localizart.android.report"
+                    android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".service.InformationService$AlarmReceiver" />
+
+        <service android:name=".service.ListenerServiceFromWear">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED" />
+                <data
+                    android:host="*"
+                    android:path="/panic-listener-wear"
+                    android:scheme="wear" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.ADTFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.ADTFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher" /> <!-- <meta-data -->
+        <!-- tools:replace="android:resource" -->
+        <!-- android:name="com.google.android.wearable.beta.app" -->
+        <!-- android:resource="@xml/wearable_app_desc"/> -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDzQtETVRaeuTJNS6TPK2f39hEL9BWyqMo" />
+        <meta-data
+            android:name="com.google.android.wearable.beta.app"
+            android:resource="@xml/wearable_app_desc"
+            tools:replace="android:resource" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="704e8f6cf134adf179899ccc5f061446e7ea4e91" />
+    </application>
+
+</manifest>

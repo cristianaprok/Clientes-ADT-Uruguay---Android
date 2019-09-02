@@ -1,0 +1,100 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/drawable_solid_color_blue_gradient"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvClickToSeeMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_fourty_dp"
+        android:text="@string/click_here_to_see_map"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.bclogic.pulsator4droid.library.PulsatorLayout
+        android:id="@+id/pulsator"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_weight="3"
+        app:layout_constraintBottom_toTopOf="@+id/civCheckStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvClickToSeeMap"
+        app:pulse_color="@color/blue_gradient_top_color"
+        app:pulse_count="6"
+        app:pulse_duration="5000"
+        app:pulse_interpolator="Accelerate"
+        app:pulse_repeat="0"
+        app:pulse_startFromScratch="false">
+
+        <ImageView
+            android:id="@+id/ivPulsatorArrow"
+            android:layout_width="114dp"
+            android:layout_height="114dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/image_description_android_phone"
+            android:src="@drawable/img_arrow_new" />
+
+
+    </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+    <ImageView
+        android:id="@+id/civCheckStatus"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:scaleType="fitXY"
+        android:src="@drawable/olivia_chatbot"
+        app:layout_constraintBottom_toTopOf="@+id/tvSOS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_fourty_dp"
+        android:layout_marginTop="@dimen/margin_fourty_dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/speech_bubble"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="@string/text_olivia_is_with_you"
+        android:textColor="@color/blue"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/space"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/space"
+        app:layout_constraintTop_toTopOf="@+id/space" />
+
+    <android.support.v4.widget.Space
+        android:id="@+id/space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/civCheckStatus"
+        app:layout_constraintEnd_toEndOf="@id/civCheckStatus"
+        app:layout_constraintStart_toStartOf="@id/civCheckStatus"
+        app:layout_constraintTop_toTopOf="@id/civCheckStatus" />
+
+    <TextView
+        android:id="@+id/tvSOS"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="@dimen/margin_fourty_dp"
+        android:background="@drawable/drawable_color_white_stroke_trasparent_bg"
+        android:gravity="center"
+        android:text="S O S"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

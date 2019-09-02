@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/linearLayoutIniciar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/llIniciarButonIniciar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            style="@style/styleLayoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textIniciarWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/welcome_edit_text_height"
+                android:layout_marginTop="@dimen/welcome_top_margin_offset"
+                android:gravity="center_vertical"
+                android:text="@string/iniciar_welcome"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/textRegistrarParagraph1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textIniciarParagraph1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/iniciar_paragraph1"
+                android:textColor="@color/color_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textIniciarWelcome" />
+
+            <TextView
+                android:id="@+id/textIniciarParagraph2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="@string/iniciar_paragraph2"
+                android:textColor="@color/color_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textIniciarParagraph1" />
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginTop="30dip"-->
+            <!--android:background="@drawable/bordes"-->
+            <!--android:orientation="vertical" >-->
+
+            <!--<EditText-->
+            <!--android:id="@+id/editTextIniciarEmail"-->
+            <!--style="@style/styleEditIniciar"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/iniciar_edit_emailhint"-->
+            <!--android:inputType="textEmailAddress" >-->
+
+            <!--<requestFocus />-->
+            <!--</EditText>-->
+            <!--</LinearLayout>-->
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black"
+                android:theme="@style/TextLabel"
+                app:hintTextAppearance="@style/mytext"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textIniciarParagraph2"
+                app:layout_constraintVertical_bias="0.3">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/editTextIniciarEmail"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/black"
+                    android:hint="@string/iniciar_edit_emailhint"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black">
+
+                    <requestFocus />
+                </android.support.design.widget.TextInputEditText>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <!--<LinearLayout-->
+            <!--android:id="@+id/llIniciarButonIniciar"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginTop="30dip"-->
+            <!--android:background="@drawable/boton_iniciar"-->
+            <!--android:orientation="vertical" >-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/textView1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:padding="8dip"-->
+            <!--android:text="@string/iniciar_button"-->
+            <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+            <!--android:textColor="#ffffffff" />-->
+
+
+            <!--</LinearLayout>-->
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llIniciarButonIniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutIniciar">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_forward_white_24dp"
+            android:theme="@style/Theme.AppCompat"
+            app:backgroundTint="@color/blue" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
